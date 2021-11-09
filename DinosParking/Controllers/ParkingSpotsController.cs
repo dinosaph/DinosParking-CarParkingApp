@@ -86,7 +86,7 @@ namespace DinosParking.Controllers
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(int id, [Bind("Id,Occupant_Id")] ParkingSpot parkingSpot)
+        public IActionResult Edit(int id, [Bind("Id,Occupant_Id")] ParkingSpot parkingSpot)
         {
             if (id != parkingSpot.Id)
             {
@@ -98,7 +98,7 @@ namespace DinosParking.Controllers
                 try
                 {
                     _context.Update(parkingSpot);
-                    await _context.SaveChangesAsync();
+                    _context.SaveChanges();
                 }
                 catch (DbUpdateConcurrencyException)
                 {
@@ -162,6 +162,11 @@ namespace DinosParking.Controllers
             return occupiedSpots;
         }
 
+        public bool ExistsEmptyParkingSpot()
+        {
+            return GetCountAllParkingSpots() - GetCountOccupiedParkingSpots() > 0;
+        }
+
         public void InitializeParkingSpace()
         {
             int parkingSpots = 10;
@@ -180,6 +185,15 @@ namespace DinosParking.Controllers
 
             _context.AddRange(parkingToAdd);
             _context.SaveChanges();
+        }
+
+        public void UpdateParkingEnter(int ticketId)
+        {
+            ParkingSpot luckySpot = _context.ParkingSpot.Where(e => e.Occupant_Id == null).FirstOrDefault();
+
+            luckySpot.Occupant_Id = ticketId;
+
+            Edit(luckySpot.Id, luckySpot);
         }
     }
 }

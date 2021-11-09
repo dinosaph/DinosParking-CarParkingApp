@@ -17,6 +17,9 @@ MVC
     * C.R.U.D. views
 
 ![wip](assets/wip/1.JPG)
+![wip](assets/wip/0.1.JPG)
+![wip](assets/wip/2.JPG)
+![wip](assets/wip/3.JPG)
 
 ## Initial state
 > Main window

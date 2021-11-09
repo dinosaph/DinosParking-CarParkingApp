@@ -182,19 +182,26 @@ namespace DinosParking.Controllers
 
         public IActionResult NewTicket()
         {
-            string newCarNum = GetCarNumber();
-            DateTime newTimeIn = DateTime.Now;
-            string newBarcode = newCarNum + newTimeIn.Hour + newTimeIn.Minute + newTimeIn.Day + newTimeIn.Month;
-            string barcodeUrl = "https://barcode.tec-it.com/barcode.ashx?data=" + newBarcode + "&code=Code128&translate-esc=on";
-            ViewData["barcodeUrl"] = barcodeUrl;
-            Console.WriteLine(barcodeUrl);
+            var parkingController = new ParkingSpotsController(_context);
 
-            Console.WriteLine(newCarNum);
+            if (parkingController.ExistsEmptyParkingSpot())
+            {
+                string newCarNum = GetCarNumber();
+                DateTime newTimeIn = DateTime.Now;
+                string newBarcode = newCarNum + newTimeIn.Hour + newTimeIn.Minute + newTimeIn.Day + newTimeIn.Month;
+                string barcodeUrl = "https://barcode.tec-it.com/barcode.ashx?data=" + newBarcode + "&code=Code128&translate-esc=on";
+                ViewData["barcodeUrl"] = barcodeUrl;
+                Console.WriteLine(newCarNum);
 
-            Ticket t = new Ticket { Car_Number = newCarNum, Time_In = newTimeIn, BarCode = newBarcode };
-            Create(t);
+                Ticket t = new Ticket { Car_Number = newCarNum, Time_In = newTimeIn, BarCode = newBarcode };
+                Create(t);
+                parkingController.UpdateParkingEnter(t.Id);
 
-            return View(t);
+                return View(t);
+            } else
+            {
+                return RedirectToAction("Index", "Home");
+            }
         }
 
         public IActionResult Scan()
