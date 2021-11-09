@@ -54,12 +54,12 @@ namespace DinosParking.Controllers
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind("Id,Car_Number,Time_In,BarCode,Time_Out,Total_Fee")] Ticket ticket)
+        public IActionResult Create([Bind("Id,Car_Number,Time_In,BarCode,Time_Out,Total_Fee")] Ticket ticket)
         {
             if (ModelState.IsValid)
             {
                 _context.Add(ticket);
-                await _context.SaveChangesAsync();
+                _context.SaveChanges();
                 return RedirectToAction(nameof(Index));
             }
             return View(ticket);
@@ -149,14 +149,59 @@ namespace DinosParking.Controllers
         {
             return _context.Ticket.Any(e => e.Id == id);
         }
+
+        private string GenerateRandText(int requestedLength)
+        {
+            Random x = new Random();
+            int txtLen = requestedLength;
+            string randTxt = "";
+            var chars = "ABCDEFGHIJKLMNOPQRSTUVWXYZ";
+
+            for (int i = 0; i < txtLen; i++)
+            {
+                randTxt += chars[x.Next(chars.Length)];
+            }
+
+            return randTxt;
+        }
+
+        private string GetCarNumber()
+        {
+            Random x = new Random();
+            string carNum = "";
+
+            List<String> countyList = new List<string> { "NT", "B", "SV", "BT", "B", "CT", "VS", "IS" };
+            int countyIndex = x.Next(countyList.Count());
+            int carInt = x.Next(10, 999);
+            string carChars = GenerateRandText(3);
+
+            carNum += countyList[countyIndex] + carInt + carChars;
+
+            return carNum;
+        }
+
         public IActionResult NewTicket()
         {
-            return View();
+            string newCarNum = GetCarNumber();
+            DateTime newTimeIn = DateTime.Now;
+            string newBarcode = newCarNum + newTimeIn.Hour + newTimeIn.Minute + newTimeIn.Day + newTimeIn.Month;
+            string barcodeUrl = "https://barcode.tec-it.com/barcode.ashx?data=" + newBarcode + "&code=Code128&translate-esc=on";
+            ViewData["barcodeUrl"] = barcodeUrl;
+            Console.WriteLine(barcodeUrl);
+
+            Console.WriteLine(newCarNum);
+
+            Ticket t = new Ticket { Car_Number = newCarNum, Time_In = newTimeIn, BarCode = newBarcode };
+            Create(t);
+
+            return View(t);
         }
+
         public IActionResult Scan()
         {
             return View();
         }
+
         public IActionResult ScanTicket(string inputBarcode)
         {
             var tickets = from t in _context.Ticket select t;

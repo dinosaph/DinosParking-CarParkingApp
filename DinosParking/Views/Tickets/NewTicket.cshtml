@@ -1,4 +1,5 @@
-﻿
+﻿@model DinosParking.Models.Ticket
+
 @{
     ViewData["Title"] = "NewTicket";
 }
@@ -9,12 +10,12 @@
 <br><br>
 
 <div class="card" style="width: 18rem;">
-  <img src="ticket_barcode" class="card-img-top" alt="...">
+  <img src=@ViewData["barcodeUrl"] class="card-img-top" alt="barcodeUrl">
   <div class="card-body">
-    <h5 class="card-title">BARCODE</h5>
+    <h5 class="card-title">@Html.DisplayFor(model => model.BarCode)</h5>
       <ul class="list-group">
-      <li class="list-group-item">Ticket#</li>
-      <li class="list-group-item">Time in:</li>
+      <li class="list-group-item">Ticket#@Html.DisplayFor(model => model.Id)</li>
+      <li class="list-group-item">Time in: @Html.DisplayFor(model => model.Time_In)</li>
       <li class="list-group-item">Dino'sParking</li>
       <li class="list-group-item text-muted">
           Parking Fee: 10 RON (1st hour) +5 RON (following hours)
