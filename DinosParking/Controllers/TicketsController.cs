@@ -86,7 +86,7 @@ namespace DinosParking.Controllers
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(int id, [Bind("Id,Car_Number,Time_In,BarCode,Time_Out,Total_Fee")] Ticket ticket)
+        public IActionResult Edit(int id, [Bind("Id,Car_Number,Time_In,BarCode,Time_Out,Total_Fee")] Ticket ticket)
         {
             if (id != ticket.Id)
             {
@@ -98,7 +98,7 @@ namespace DinosParking.Controllers
                 try
                 {
                     _context.Update(ticket);
-                    await _context.SaveChangesAsync();
+                    _context.SaveChanges();
                 }
                 catch (DbUpdateConcurrencyException)
                 {
@@ -211,15 +211,34 @@ namespace DinosParking.Controllers
 
         public IActionResult ScanTicket(string inputBarcode)
         {
-            var tickets = from t in _context.Ticket select t;
-
+            Console.WriteLine(inputBarcode);
             if (!String.IsNullOrEmpty(inputBarcode))
             {
-                tickets = tickets.Where(t => t.BarCode!.Contains(inputBarcode));
-            }
+                //tickets = tickets.Where(t => t.BarCode!.Contains(inputBarcode));
+                Ticket t = _context.Ticket.Where(t => t.BarCode == inputBarcode && t.Time_Out == null).FirstOrDefault();
+                if (t != null)
+                {
+                    Console.WriteLine(t.BarCode);
+                    DateTime timeOut = DateTime.Now;
+                    int totalFee = GetParkingFee(timeOut);
 
-            return View("Index", tickets.ToList());
-            //return View("Scan");
+                    t.Time_Out = timeOut;
+                    t.Total_Fee = totalFee;
+
+                    Edit(t.Id, t);
+
+                    var parkingController = new ParkingSpotsController(_context);
+                    parkingController.UpdateParkingLeave(t.Id);
+
+                    return View("NewSummary");
+                }
+            }
+            return View("Scan");
+        }
+
+        private int GetParkingFee(DateTime timeOut)
+        {
+            return 10;
         }
 
         public IActionResult NewSummary()

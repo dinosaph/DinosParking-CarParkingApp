@@ -195,5 +195,14 @@ namespace DinosParking.Controllers
 
             Edit(luckySpot.Id, luckySpot);
         }
+
+        public void UpdateParkingLeave(int ticketId)
+        {
+            ParkingSpot occupiedSpot = _context.ParkingSpot.Where(e => e.Occupant_Id == ticketId).FirstOrDefault();
+
+            occupiedSpot.Occupant_Id = null;
+
+            Edit(occupiedSpot.Id, occupiedSpot);
+        }
     }
 }

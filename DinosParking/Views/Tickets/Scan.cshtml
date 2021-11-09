@@ -1,6 +1,4 @@
-﻿@model DinosParking.Models.Ticket
-
-@{
+﻿@{
     ViewData["Title"] = "Scan";
 }
 
@@ -9,17 +7,13 @@
 
 <br><br>
 
-@using (Html.BeginForm("ScanTicket", "Tickets", FormMethod.Post))
-{
-    <!--<div class="form-group">
+<form asp-controller="Tickets" asp-action="ScanTicket">
+    <div class="form-group">
     <label for="inputBarcode">Barcode</label>
-    <input type="text" class="form-control" id="inputBarcode" placeholder="Enter ticket barcode">
-    <small id="ticketHelp" class="form-text text-muted">Check your parking ticket barcode.</small>
+    <input type="text" class="form-control" name="inputBarcode"/>
     </div>
-    <button type="submit" class="btn btn-primary" onclick="location.href='@Url.Action("ScanTicket","Tickets")'">Scan</button>-->
-    @Html.TextBoxFor(m => m.BarCode) 
-    <input type="submit" value="Scan"/>
-}
+    <button type="submit" class="btn btn-primary">Scan ticket</button>
+</form>
 
 <br><br>
 
