@@ -4,12 +4,12 @@
     ViewData["Title"] = "Index";
 }
 
-<h1>Index</h1>
+<h1>Live parking spots overview</h1>
 
 <p>
     <a asp-action="Create">Create New</a>
 </p>
-<table class="table">
+<!--<table class="table">
     <thead>
         <tr>
             <th>
@@ -32,4 +32,22 @@
         </tr>
 }
     </tbody>
-</table>
+</table>-->
+<div class="card-columns">
+    @foreach (var item in Model)
+    {
+    string card_color = "success";
+    if (item.Occupant_Id != null) {
+        card_color = "danger";
+    }
+    <div class="card text-white bg-@card_color mb-3" style="max-width: 18rem;">
+      <div class="card-header">@Html.DisplayFor(modelItem => item.Id)</div>
+      <div class="card-body">
+        <h5 class="card-title">@Html.DisplayFor(modelItem => item.Occupant_Id)</h5>
+        <a asp-action="Edit" asp-route-id="@item.Id">Edit</a>
+        <a asp-action="Details" asp-route-id="@item.Id">Details</a>
+        <a asp-action="Delete" asp-route-id="@item.Id">Delete</a>
+      </div>
+    </div>
+    }
+</div>

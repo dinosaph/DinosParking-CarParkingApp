@@ -149,5 +149,30 @@ namespace DinosParking.Controllers
         {
             return _context.Ticket.Any(e => e.Id == id);
         }
+        public IActionResult NewTicket()
+        {
+            return View();
+        }
+        public IActionResult Scan()
+        {
+            return View();
+        }
+        public IActionResult ScanTicket(string inputBarcode)
+        {
+            var tickets = from t in _context.Ticket select t;
+
+            if (!String.IsNullOrEmpty(inputBarcode))
+            {
+                tickets = tickets.Where(t => t.BarCode!.Contains(inputBarcode));
+            }
+
+            return View("Index", tickets.ToList());
+            //return View("Scan");
+        }
+
+        public IActionResult NewSummary()
+        {
+            return View();
+        }
     }
 }

@@ -3,6 +3,29 @@
 }
 
 <div class="text-center">
-    <h1 class="display-4">Welcome</h1>
-    <p>Learn about <a href="https://docs.microsoft.com/aspnet/core">building Web apps with ASP.NET Core</a>.</p>
+    <h1 class="display-4">Welcome to Dino'sParking</h1>
+
+    <img src="https://i.pinimg.com/originals/22/85/ff/2285ffde4cab79aac30c62195e8d016d.png" class="img-fluid" alt="Responsive image">
+
+    <br><br>
+
+     <div class="card text-white bg-success mb-3 mx-auto" style="max-width: 13em;">
+      <div class="card-header">Occupied parking spots</div>
+      <div class="card-body">
+        <h1 class="card-title">0/0</h1>
+      </div>
+    </div>
+    
+    <br>
+    @using (Html.BeginForm("NewTicket", "Tickets", FormMethod.Get))
+    {
+    <button type="button" class="btn btn-primary btn-lg" onclick="location.href='@Url.Action("NewTicket","Tickets")'">Get Ticket</button>
+    }
+    <br><br>
+    @using (Html.BeginForm("Scan", "Tickets", FormMethod.Get))
+    {
+    <button type="button" class="btn btn-secondary" onclick="location.href='@Url.Action("Scan","Tickets")'">Leave</button>
+    }
+    <br><br>
+
 </div>

@@ -149,3 +149,11 @@ C:\Users\dinosaph\Documents\dinostudy\.net\DinosParking\DinosParking\obj\Debug\n
 C:\Users\dinosaph\Documents\dinostudy\.net\DinosParking\DinosParking\obj\Debug\net5.0\Razor\Views\Tickets\Details.cshtml.g.cs
 C:\Users\dinosaph\Documents\dinostudy\.net\DinosParking\DinosParking\obj\Debug\net5.0\Razor\Views\Tickets\Edit.cshtml.g.cs
 C:\Users\dinosaph\Documents\dinostudy\.net\DinosParking\DinosParking\obj\Debug\net5.0\Razor\Views\Tickets\Index.cshtml.g.cs
+C:\Users\dinosaph\Documents\dinostudy\.net\DinosParking\DinosParking\obj\Debug\net5.0\Razor\Views\ParkingSpots\Create.cshtml.g.cs
+C:\Users\dinosaph\Documents\dinostudy\.net\DinosParking\DinosParking\obj\Debug\net5.0\Razor\Views\ParkingSpots\Delete.cshtml.g.cs
+C:\Users\dinosaph\Documents\dinostudy\.net\DinosParking\DinosParking\obj\Debug\net5.0\Razor\Views\ParkingSpots\Details.cshtml.g.cs
+C:\Users\dinosaph\Documents\dinostudy\.net\DinosParking\DinosParking\obj\Debug\net5.0\Razor\Views\ParkingSpots\Edit.cshtml.g.cs
+C:\Users\dinosaph\Documents\dinostudy\.net\DinosParking\DinosParking\obj\Debug\net5.0\Razor\Views\ParkingSpots\Index.cshtml.g.cs
+C:\Users\dinosaph\Documents\dinostudy\.net\DinosParking\DinosParking\obj\Debug\net5.0\Razor\Views\Tickets\NewTicket.cshtml.g.cs
+C:\Users\dinosaph\Documents\dinostudy\.net\DinosParking\DinosParking\obj\Debug\net5.0\Razor\Views\Tickets\NewSummary.cshtml.g.cs
+C:\Users\dinosaph\Documents\dinostudy\.net\DinosParking\DinosParking\obj\Debug\net5.0\Razor\Views\Tickets\Scan.cshtml.g.cs

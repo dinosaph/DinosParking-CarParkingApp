@@ -16,6 +16,8 @@ MVC
   * ParkingSpots
     * C.R.U.D. views
 
+![wip](assets/wip/1.png)
+
 ## Initial state
 > Main window
 > * See available parking spots
