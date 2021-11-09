@@ -149,5 +149,37 @@ namespace DinosParking.Controllers
         {
             return _context.ParkingSpot.Any(e => e.Id == id);
         }
+
+        public int GetCountAllParkingSpots()
+        {
+            int allSpots = _context.ParkingSpot.Count();
+            return allSpots;
+        }
+
+        public int GetCountOccupiedParkingSpots()
+        {
+            int occupiedSpots = _context.ParkingSpot.Where(e => e.Occupant_Id != null).Count();
+            return occupiedSpots;
+        }
+
+        public void InitializeParkingSpace()
+        {
+            int parkingSpots = 10;
+
+            if (_context.ParkingSpot.Any())
+            {
+                // No need to seed. Data already exists.
+                return;
+            }
+
+            List<ParkingSpot> parkingToAdd = new List<ParkingSpot>();
+            for (int i = 0; i < parkingSpots; i++)
+            {
+                parkingToAdd.Add(new ParkingSpot { });
+            }
+
+            _context.AddRange(parkingToAdd);
+            _context.SaveChanges();
+        }
     }
 }

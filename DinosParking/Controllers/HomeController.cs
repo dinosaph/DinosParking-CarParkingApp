@@ -1,4 +1,5 @@
-﻿using DinosParking.Models;
+﻿using DinosParking.Data;
+using DinosParking.Models;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
 using System;
@@ -12,14 +13,23 @@ namespace DinosParking.Controllers
     public class HomeController : Controller
     {
         private readonly ILogger<HomeController> _logger;
+        private readonly DinosParkingContext _context;
 
-        public HomeController(ILogger<HomeController> logger)
+        public HomeController(ILogger<HomeController> logger, DinosParkingContext context)
         {
             _logger = logger;
+            _context = context;
         }
 
         public IActionResult Index()
         {
+            var parkingController = new ParkingSpotsController(_context);
+
+            parkingController.InitializeParkingSpace();
+
+            ViewData["allSpots"] = parkingController.GetCountAllParkingSpots();
+            ViewData["occupiedSpots"] = parkingController.GetCountOccupiedParkingSpots();
+
             return View();
         }
 
