@@ -16,7 +16,7 @@ MVC
   * ParkingSpots
     * C.R.U.D. views
 
-![wip](assets/wip/1.jpg)
+![wip](assets/wip/1.JPG)
 
 ## Initial state
 > Main window
