@@ -13,13 +13,29 @@ MVC
     * C.R.U.D. views
     * NewTicket
     * ScanTicket
+    * NewSummary
   * ParkingSpots
     * C.R.U.D. views
 
-![wip](assets/wip/1.JPG)
-![wip](assets/wip/0.1.JPG)
-![wip](assets/wip/2.JPG)
-![wip](assets/wip/3.JPG)
+App Overview
+
+https://user-images.githubusercontent.com/22761407/141097344-54830d95-2801-460f-aa74-e81e973c861e.mp4
+
+
+Flow overview
+![wip](assets/wip/1.1.JPG)
+> New ticket
+![wip](assets/wip/2.1.JPG)
+> Parking space updated
+![wip](assets/wip/0.2.JPG)
+> Currently parked
+![wip](assets/wip/3.1.JPG)
+> Home updated available parking
+![wip](assets/wip/1.2.JPG)
+> Leaving park - Scan ticket
+![wip](assets/wip/4.JPG)
+> Updated summary generation
+![wip](assets/wip/5.JPG)
 
 ## Initial state
 > Main window
