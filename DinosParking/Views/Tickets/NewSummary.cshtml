@@ -1,9 +1,11 @@
-﻿
+﻿@model DinosParking.Models.Ticket
+
 @{
     ViewData["Title"] = "NewSummary";
 }
 
-<h1>Your summary has been generated.</h1>
+<h1>Summary for ticket#@Html.DisplayFor(model => model.Id)</h1>
+<p>Thank you for choosing our parking services.</p>
 
 <br><br>
 
@@ -11,10 +13,10 @@
   <div class="card-body">
     <h5 class="card-title">Dino'sParking</h5>
       <ul class="list-group">
-      <li class="list-group-item">Ticket#</li>
-      <li class="list-group-item">Time In:</li>
-      <li class="list-group-item">Time Out:</li>
-      <li class="list-group-item">FEE</li>
+      <li class="list-group-item">Ticket#@Html.DisplayFor(model => model.Id)</li>
+      <li class="list-group-item">Time In: @Html.DisplayFor(model => model.Time_In)</li>
+      <li class="list-group-item">Time Out: @Html.DisplayFor(model => model.Time_Out)</li>
+      <li class="list-group-item">@Html.DisplayFor(model => model.Total_Fee)</li>
       <li class="list-group-item text-muted">
           Parking Fee: 10 RON (1st hour) +5 RON (following hours)
       </li>

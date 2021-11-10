@@ -40,7 +40,7 @@ namespace DinosParking.Controllers
                 return NotFound();
             }
 
-            return View(ticket);
+            return View("NewSummary", ticket);
         }
 
         // GET: Tickets/Create
@@ -191,7 +191,6 @@ namespace DinosParking.Controllers
                 string newBarcode = newCarNum + newTimeIn.Hour + newTimeIn.Minute + newTimeIn.Day + newTimeIn.Month;
                 string barcodeUrl = "https://barcode.tec-it.com/barcode.ashx?data=" + newBarcode + "&code=Code128&translate-esc=on";
                 ViewData["barcodeUrl"] = barcodeUrl;
-                Console.WriteLine(newCarNum);
 
                 Ticket t = new Ticket { Car_Number = newCarNum, Time_In = newTimeIn, BarCode = newBarcode };
                 Create(t);
@@ -220,7 +219,7 @@ namespace DinosParking.Controllers
                 {
                     Console.WriteLine(t.BarCode);
                     DateTime timeOut = DateTime.Now;
-                    int totalFee = GetParkingFee(timeOut);
+                    int totalFee = GetParkingFee(t.Time_In, timeOut);
 
                     t.Time_Out = timeOut;
                     t.Total_Fee = totalFee;
@@ -230,15 +229,26 @@ namespace DinosParking.Controllers
                     var parkingController = new ParkingSpotsController(_context);
                     parkingController.UpdateParkingLeave(t.Id);
 
-                    return View("NewSummary");
+                    return View("NewSummary", t);
                 }
             }
             return View("Scan");
         }
 
-        private int GetParkingFee(DateTime timeOut)
+        private int GetParkingFee(DateTime timeIn, DateTime timeOut)
         {
-            return 10;
+            int hrsSpent = ((int)System.Math.Ceiling((timeOut - timeIn).TotalHours));
+            int fee = 0;
+
+            if (hrsSpent > 0)
+            {
+                fee += 10;
+                if (hrsSpent > 1)
+                {
+                    fee += 5 * (hrsSpent - 1);
+                }
+            }
+            return fee;
         }
 
         public IActionResult NewSummary()
